@@ -32,14 +32,21 @@ BCRYPT_PASSWORD=secret-password
 SALT_ROUNDS=10
 TOKEN_SECRET=token90
 ```
-### 2. Create Database 
+### 2. Create Database and Migrations
 
 Command Line 
 
 ```
 psql -U postgres 
 ```
-
+### 3. Scripts
+1. yarn start 
+2. yarn dev 
+3. yarn test 
+4. yarn prettier 
+5. yarn lint
+6. yarn migrate:up -> to create tables
+7. yarn migrate:down -> to drop tables
 
 In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
 
