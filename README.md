@@ -15,7 +15,31 @@ Your application must make use of the following libraries:
 
 ## Steps to Completion
 
-### 1. Plan to Meet Requirements
+### 1. Setup Environment
+
+Create `.env` file with Vars:
+
+```
+PORT=3000
+ENV=dev
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=store_front
+POSTGRES_DB_TEST=store_front_test
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+BCRYPT_PASSWORD=secret-password
+SALT_ROUNDS=10
+TOKEN_SECRET=token90
+```
+### 2. Create Database 
+
+Command Line 
+
+```
+psql -U postgres 
+```
+
 
 In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
 
