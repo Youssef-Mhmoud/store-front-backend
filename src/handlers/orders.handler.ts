@@ -12,7 +12,7 @@ const Index = async (_req: Request, res: Response) => {
   res.json(orders);
 };
 const Show = async (req: Request, res: Response) => {
-  const orders = await order.show(req.body.id);
+  const orders = await order.show(req.params.id as unknown as number);
   res.json(orders);
 };
 const Create = async (req: Request, res: Response) => {
@@ -41,9 +41,9 @@ const createProduct = async (req: Request, res: Response) => {
   }
   const orderId: string = req.params.id;
   const productId: string = req.body.productId;
-  const quantity: number = req.body.quantity;
+  const quantity: number = parseInt(req.body.quantity);
   try {
-    const orders = await order.createProduct(quantity, orderId, productId);
+    const orders = await order.createProduct(quantity, orderId , productId);
     res.json(orders);
   } catch (error) {
     res.status(400);

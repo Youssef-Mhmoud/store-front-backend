@@ -1,5 +1,5 @@
 export type User = {
-  id?: number;
+  id?: number | undefined;
   first_name?: string;
   last_name?: string;
   password?: string;

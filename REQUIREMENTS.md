@@ -6,36 +6,112 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## API Endpoints
 #### Products
 - Index 
+  - Method: `get`
+  - Endpoint: `/products/`
 - Show
+  - Method: `get`
+  - Endpoint: `/products/:id`
 - Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
-
+  - Method: `post`
+  - Endpoint: `/products/:id`
+  - Request Body:
+  ```
+  {
+    "id": "1",
+    "name": "test",
+    "price": "120"
+  }
+  ```
 #### Users
+- Authenticate
+  - Method: `post`
+  - Endpoint: `/users/authenticate`
+  - Request Body:
+  ```
+  {
+    "id": "1",
+    "password": "120"
+  }
+  ```
 - Index [token required]
+  - Method: `get`
+  - Endpoint: `/users/`
 - Show [token required]
+  - Method: `get`
+  - Endpoint: `/users/:id`
 - Create N[token required]
+  - Method: `post`
+  - Endpoint: `/users/:id`
+  - Request Body:
+  ```
+  {
+    "first_name": "firstname",
+    "last_name": "lastname",
+    "password": "120"
+  }
+  ```
 
 #### Orders
+- Index [token required]
+  - Method: `get`
+  - Endpoint: `/orders/`
+- Show [token required]
+  - Method: `get`
+  - Endpoint: `/orders/:id`
+- Create N[token required]
+  - Method: `post`
+  - Endpoint: `/users/:id`
+  - Request Body:
+  ```
+  {
+    "id": "1",
+    "status": "active",
+    "user_id": "1"
+  }
+  ```
 - Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+  - Method: `post`
+  - Endpoint: `/orders/:id/products`
+  - Request Body:
+  ```
+  {
+    "productId": "1",
+    "quantity": "20"
+  }
+  ```
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+```
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(80) NOT NULL,
+  price INT NOT NULL
+)
+```
 
 #### User
-- id
-- firstName
-- lastName
-- password
-
+```
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL
+)
+```
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+```
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  status VARCHAR(80),
+  user_id bigint REFERENCES users(id)
+)
+```
+#### Order_products
+```
+CREATE TABLE order_products (
+  quantity INT,
+  order_id bigint REFERENCES orders(id),
+  products_id bigint REFERENCES products(id)
+)
+```

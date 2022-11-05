@@ -12,7 +12,7 @@ const Index = async (_req: Request, res: Response) => {
   res.json(products);
 };
 const Show = async (req: Request, res: Response) => {
-  const products = await product.show(req.body.id);
+  const products = await product.show(req.params.id as unknown as number);
   res.json(products);
 };
 const Create = async (req: Request, res: Response) => {

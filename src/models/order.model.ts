@@ -45,7 +45,7 @@ export class Order {
 
       return result.rows[0];
     } catch (error) {
-      throw new Error(`Cann't Create Order_Product ${error}`);
+      throw new Error(`Cann't Create Order ${error}`);
     }
   }
   // Create Product order
@@ -62,7 +62,7 @@ export class Order {
 
       const order = result.rows[0];
 
-      if (order.status !== 'open') {
+      if (order.status !== 'active') {
         throw new Error(
           `Could not add product ${productId} to order ${orderId} because order status is ${order.status}`
         );
@@ -73,21 +73,19 @@ export class Order {
       throw new Error(`${err}`);
     }
     try {
-      const connection = await client.connect();
-      const sqls =
-        'INSERT INTO order_products (quantity, order_id, products_id) VALUES ($1, $2, $3) RETURNING *';
+      const sql = 'INSERT INTO order_products (quantity, order_id, products_id) VALUES($1, $2, $3) RETURNING *'
+      const connection = await client.connect()
 
-      const result = await connection.query(sqls, [
-        quantity,
-        orderId,
-        productId,
-      ]);
+      const result = await connection
+          .query(sql, [quantity, orderId, productId])
 
-      connection.release();
+      const order = result.rows[0]
 
-      return result.rows[0];
-    } catch (error) {
-      throw new Error(`Cann't Create Order_Product ${error}`);
+      connection.release()
+
+      return order
+    } catch (err) {
+      throw new Error(`Could not add product ${productId} to order ${orderId}: ${err}`)
     }
   }
   // Update Order

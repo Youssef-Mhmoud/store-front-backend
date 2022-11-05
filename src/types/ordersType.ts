@@ -1,5 +1,5 @@
 export type Orders = {
-  id?: number;
+  id?: number | undefined;
   status: string;
   user_id?: number;
 };

@@ -93,7 +93,7 @@ export class Users {
     }
   }
   // Authenticate
-  async authenticate(id: number, password: string): Promise<User | null> {
+  async authenticate(id: number | undefined, password: string): Promise<User | null> {
     const connection = await client.connect();
     const sql = 'SELECT password FROM users WHERE id=($1)';
 

@@ -36,7 +36,7 @@ const Show = async (req: Request, res: Response) => {
     return;
   }
   try {
-    const user = await users.show(req.body.id);
+    const user = await users.show(req.params.id as unknown as number);
     res.json(user);
   } catch (error) {
     res.status(401);
@@ -93,7 +93,7 @@ const Authenticate = async (req: Request, res: Response) => {
   };
   try {
     const user = await users.authenticate(
-      userAuthenticate.id as number,
+      userAuthenticate.id,
       userAuthenticate.password as string
     );
     const token = jwt.sign({ user: user }, config.tokenSecret as string);
