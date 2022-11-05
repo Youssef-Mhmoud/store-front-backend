@@ -22,6 +22,20 @@ These are the notes from a meeting with the frontend developer that describe wha
     "price": "120"
   }
   ```
+- Update [token required]
+  - Method: `put`
+  - Endpoint: `/products/:id`
+  - Request Body:
+  ```
+  {
+    "id": "2",
+    "name": "test201",
+    "price": "200"
+  }
+  ```
+- Delete [token required]
+    - Method: `delete`
+    - Endpoint: `/products/:id`
 #### Users
 - Authenticate
   - Method: `post`
@@ -39,7 +53,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show [token required]
   - Method: `get`
   - Endpoint: `/users/:id`
-- Create N[token required]
+- Create [token required]
   - Method: `post`
   - Endpoint: `/users/:id`
   - Request Body:
@@ -50,6 +64,20 @@ These are the notes from a meeting with the frontend developer that describe wha
     "password": "120"
   }
   ```
+- Update [token required]
+  - Method: `put`
+  - Endpoint: `/users/:id`
+  - Request Body:
+  ```
+  {
+    "first_name": "firstname2",
+    "last_name": "lastname2",
+    "password": "500"
+  }
+  ```
+- Delete [token required]
+  - Method: `delete`
+  - Endpoint: `/users/:id`
 
 #### Orders
 - Index [token required]
@@ -58,7 +86,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show [token required]
   - Method: `get`
   - Endpoint: `/orders/:id`
-- Create N[token required]
+- Create [token required]
   - Method: `post`
   - Endpoint: `/users/:id`
   - Request Body:
@@ -79,7 +107,20 @@ These are the notes from a meeting with the frontend developer that describe wha
     "quantity": "20"
   }
   ```
-
+- Update [token required]
+  - Method: `put`
+  - Endpoint: `/users/:id`
+  - Request Body:
+  ```
+  {
+    "id": "2",
+    "status": "not active",
+    "user_id": "2"
+  }
+  ```
+- Delete [token required]
+  - Method: `delete`
+  - Endpoint: `/orders/:id`
 ## Data Shapes
 #### Product
 ```

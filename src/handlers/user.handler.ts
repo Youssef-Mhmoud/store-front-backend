@@ -69,8 +69,17 @@ const Create = async (req: Request, res: Response) => {
 };
 const Update = async (req: Request, res: Response) => {
   try {
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(' ')[1];
+    jwt.verify(token as string, config.tokenSecret as string);
+  } catch (error) {
+    res.status(401);
+    res.json('Invalid Token');
+    return;
+  }
+  try {
     const userData: User = {
-      id: req.body.id,
+      id: +(req.params.id as string),
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       password: req.body.password,

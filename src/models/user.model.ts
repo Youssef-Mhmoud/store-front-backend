@@ -67,7 +67,7 @@ export class Users {
         u.first_name,
         u.last_name,
         u.password,
-        u.id,
+        u.id
       ]);
 
       connection.release();

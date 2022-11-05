@@ -40,6 +40,15 @@ const Create = async (req: Request, res: Response) => {
 };
 const Update = async (req: Request, res: Response) => {
   try {
+    const authorizationHeader = req.headers.authorization as string;
+    const token = authorizationHeader.split(' ')[1];
+    jwt.verify(token as string, config.tokenSecret as string);
+  } catch (error) {
+    res.status(401);
+    res.json('Invalid Token');
+    return
+  }
+  try {
     const productData: Products = {
       id: req.body.id,
       name: req.body.name,
