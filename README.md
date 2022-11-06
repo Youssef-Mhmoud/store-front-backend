@@ -49,7 +49,9 @@ psql -U postgres
 - Third, you need to use migration up :
   - `yarn migrate:up` -> to create tables
 
-``` Notice: the port of database running is '5432' ```
+``` 
+Notice: the port of database running is '5432' 
+```
 ### 3. Scripts
 1. `yarn start` 
 2. `yarn dev `
