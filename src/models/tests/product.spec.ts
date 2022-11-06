@@ -34,7 +34,7 @@ describe('Product Model', () => {
   });
   it('Get All Products', async () => {
     const result = await products.index();
-    expect(result.length).toEqual(2);
+    expect(result.length).toEqual(4);
   });
   it('Get One Product', async () => {
     const result = await products.show(pro_id as number);

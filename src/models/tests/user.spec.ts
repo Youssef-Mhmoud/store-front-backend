@@ -43,7 +43,7 @@ describe('Users Model', () => {
 
   it('Get All Users', async () => {
     const result = await users.index();
-    expect(result.length).toEqual(2);
+    expect(result.length).toEqual(4);
   });
   it('Get One User', async () => {
     const result = await users.show(user_id as number);

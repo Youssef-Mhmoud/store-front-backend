@@ -75,16 +75,10 @@ describe('Order Model', () => {
 
   it('Get All Orders', async () => {
     const result = await orders.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        status: 'active',
-        user_id: user_id?.toString(),
-      },
-    ]);
+    expect(result.length).toEqual(2);
   });
   it('Get One Order', async () => {
-    const result = await orders.show(1);
+    const result = await orders.show(order_id as number);
     expect(result).toEqual({
       id: 1,
       status: 'active',
