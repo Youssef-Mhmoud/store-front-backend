@@ -10,7 +10,7 @@ export class Users {
   async index(): Promise<User[]> {
     try {
       const connection = await client.connect();
-      const sqls = 'SELECT * FROM users';
+      const sqls = 'SELECT id, first_name, last_name FROM users';
 
       const result = await connection.query(sqls);
 
@@ -25,7 +25,7 @@ export class Users {
   async show(id: number): Promise<User> {
     try {
       const connection = await client.connect();
-      const sqls = 'SELECT * FROM users WHERE id=($1)';
+      const sqls = 'SELECT id, first_name, last_name FROM users WHERE id=($1)';
 
       const result = await connection.query(sqls, [id]);
 
@@ -61,7 +61,7 @@ export class Users {
     try {
       const connection = await client.connect();
       const sqls =
-        'UPDATE users SET first_name=$1, last_name=$2, password=$3 WHERE id=$4 RETURNING *';
+        'UPDATE users SET first_name=$1, last_name=$2, password=$3 WHERE id=$4 RETURNING first_name, last_name, id';
 
       const result = await connection.query(sqls, [
         u.first_name,
