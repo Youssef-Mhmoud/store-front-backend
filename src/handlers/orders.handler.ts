@@ -3,6 +3,7 @@ import { Application, Request, Response } from 'express';
 import { Order } from '../models/order.model';
 import { Orders } from '../types/ordersType';
 import jwt from 'jsonwebtoken'
+import { Orders_Products } from '../types/order_produts';
 
 const order = new Order();
 
@@ -39,11 +40,13 @@ const createProduct = async (req: Request, res: Response) => {
     res.json('Invalid Token');
     return;
   }
-  const orderId: string = req.params.id;
-  const productId: string = req.body.productId;
-  const quantity: number = parseInt(req.body.quantity);
+  const orderData: Orders_Products = {
+    quantity: parseInt(req.body.quantity),
+    products_id: req.body.productId,
+    order_id: req.params.id,
+  };
   try {
-    const orders = await order.createProduct(quantity, orderId , productId);
+    const orders = await order.createProduct(orderData);
     res.json(orders);
   } catch (error) {
     res.status(400);

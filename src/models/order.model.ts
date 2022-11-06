@@ -1,5 +1,6 @@
 import client from '../database';
 import { Orders } from '../types/ordersType';
+import { Orders_Products } from '../types/order_produts';
 
 export class Order {
   // Show All Orders
@@ -50,21 +51,22 @@ export class Order {
   }
   // Create Product order
   async createProduct(
-    quantity: number,
-    orderId: string,
-    productId: string
-  ): Promise<Orders> {
+    // quantity: number,
+    // orderId: string,
+    // productId: string
+    o_p: Orders_Products
+  ): Promise<Orders_Products> {
     try {
       const ordersql = 'SELECT * FROM orders WHERE id=($1)';
       const connection = await client.connect();
 
-      const result = await connection.query(ordersql, [orderId]);
+      const result = await connection.query(ordersql, [o_p.order_id]);
 
       const order = result.rows[0];
 
       if (order.status !== 'active') {
         throw new Error(
-          `Could not add product ${productId} to order ${orderId} because order status is ${order.status}`
+          `Could not add product ${o_p.products_id} to order ${o_p.order_id} because order status is ${order.status}`
         );
       }
 
@@ -77,15 +79,14 @@ export class Order {
       const connection = await client.connect()
 
       const result = await connection
-          .query(sql, [quantity, orderId, productId])
-
+          .query(sql, [o_p.quantity, o_p.order_id, o_p.products_id])
       const order = result.rows[0]
 
       connection.release()
 
       return order
     } catch (err) {
-      throw new Error(`Could not add product ${productId} to order ${orderId}: ${err}`)
+      throw new Error(`Could not add product ${o_p.products_id} to order ${o_p.order_id}: ${err}`)
     }
   }
   // Update Order

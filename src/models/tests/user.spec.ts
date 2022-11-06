@@ -1,7 +1,9 @@
+import { User } from '../../types/userType';
 import { Users } from '../user.model';
 
 const users = new Users();
-
+let user_id: number | undefined;
+let resultCreate: User;
 describe('Users Model', () => {
   it('Should have a index method', () => {
     expect(users.index).toBeDefined();
@@ -22,54 +24,56 @@ describe('Users Model', () => {
     expect(users.authenticate).toBeDefined();
   });
 
-  it('Create User', async () => {
-    const resultCreate = await users.create({
-      first_name: 'test',
-      last_name: 'test200',
-      password: '123',
+  beforeAll(async () => {
+    resultCreate = await users.create({
+      first_name: 'test100',
+      last_name: 'test500',
+      password: '789',
     });
+    user_id = resultCreate.id;
+  });
+  it('Create User', async () => {
     expect(resultCreate).toEqual({
-      id: 1,
-      first_name: 'test',
-      last_name: 'test200',
+      id: user_id,
+      first_name: 'test100',
+      last_name: 'test500',
       password: resultCreate.password,
     });
   });
 
   it('Get All Users', async () => {
     const result = await users.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        first_name: 'test',
-        last_name: 'test200',
-      },
-    ]);
+    expect(result.length).toEqual(2);
   });
   it('Get One User', async () => {
-    const result = await users.show(1);
+    const result = await users.show(user_id as number);
     expect(result).toEqual({
-      id: 1,
-      first_name: 'test',
-      last_name: 'test200',
+      id: user_id,
+      first_name: 'test100',
+      last_name: 'test500',
     });
   });
   it('Update User', async () => {
     const result = await users.update({
-      id: 1,
+      id: user_id,
       first_name: 'not',
       last_name: 'test',
       password: '123',
     });
     expect(result).toEqual({
-      id: 1,
+      id: user_id,
       first_name: 'not',
       last_name: 'test',
     });
   });
-  it('Delete User', async () => {
-    users.delete('1');
-    const result = await users.index();
-    expect(result).toEqual([]);
-  });
+  // let result: unknown;
+  // afterAll(async () => {
+  //   users.delete(user_id?.toString() as string);
+  //   result = await users.index();
+  //   console.log(result)
+  // });
+  // it('Delete User', async () => {
+  //     console.log(result)
+  //   expect(result).toEqual([]);
+  // });
 });

@@ -1,7 +1,7 @@
 import { Product } from '../product.model';
 
 const products = new Product();
-
+let pro_id: number | undefined;
 describe('Product Model', () => {
   it('Should have a index method', () => {
     expect(products.index).toBeDefined();
@@ -21,49 +21,51 @@ describe('Product Model', () => {
 
   it('Create Product', async () => {
     const resultCreate = await products.create({
-      id: 1,
-      name: 'test',
-      price: 102,
+      id: 50,
+      name: 'test00',
+      price: 1023,
     });
+    pro_id = resultCreate.id
     expect(resultCreate).toEqual({
-      id: 1,
-      name: 'test',
-      price: 102,
+      id: pro_id,
+      name: 'test00',
+      price: 1023,
     });
   });
   it('Get All Products', async () => {
     const result = await products.index();
-    expect(result).toEqual([
-      {
-        id: 1,
-        name: 'test',
-        price: 102,
-      },
-    ]);
+    expect(result.length).toEqual(2);
   });
   it('Get One Product', async () => {
-    const result = await products.show(1);
+    const result = await products.show(pro_id as number);
     expect(result).toEqual({
-      id: 1,
-      name: 'test',
-      price: 102,
+      id: pro_id,
+      name: 'test00',
+      price: 1023,
     });
   });
   it('Update Product', async () => {
     const result = await products.update({
-      id: 1,
+      id: pro_id,
       name: 'test20000',
       price: 200,
     });
     expect(result).toEqual({
-      id: 1,
+      id: pro_id,
       name: 'test20000',
       price: 200,
     });
   });
+  // let result: unknown;
+  // afterAll(async () => {
+  //   products.delete(pro_id?.toString() as string);
+  //   result = await products.index();
+  // });
   // it('Delete Product', async () => {
-  //   products.delete('1');
-  //   const result = await products.index();
   //   expect(result).toEqual([]);
   // });
 });
+
+
+
+
