@@ -34,11 +34,22 @@ TOKEN_SECRET=token90
 ```
 ### 2. Create Database and Migrations
 
-Command Line :
-
+Connect to default postgres database :
 ```
 psql -U postgres 
 ```
+- Frist, In psql you need to create database :
+  - `CREATE DATABASE store_front;`
+  - `CREATE DATABASE store_front_test;`
+- Second, In psql you need connect the database :
+  - for develope
+  - `\c store_front;`
+  - for testing
+  - `\c store_front_test;`
+- Third, you need to use migration up :
+  - `yarn migrate:up` -> to create tables
+
+``` Notice: the port of database running is '5432' ```
 ### 3. Scripts
 1. `yarn start` 
 2. `yarn dev `
